@@ -6,7 +6,7 @@ public class Runner {
 		IClientesDAO daoClientes = new ClientesDAO();
 		ISegurosDAO daoSeguros = new SegurosDAO();
 		GestionSeguros negocio = new GestionSeguros(daoClientes, daoSeguros);
-		VistaAgente vista = new VistaAgente(daoClientes, daoSeguros, );
+		VistaAgente vista = new VistaAgente(negocio, negocio, negocio);
 		vista.setVisible(true);
 	}
 
