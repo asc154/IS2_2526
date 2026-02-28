@@ -20,11 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/main/java/es/unican/is2/VistaAgente.java</name>
-			<type>1</type>
-			<locationURI>PARENT-4-PROJECT_LOC/Users/Alejandro/Documents/UC/25-26/IngSoftware/CodigoPractica2/VistaAgente.java</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
