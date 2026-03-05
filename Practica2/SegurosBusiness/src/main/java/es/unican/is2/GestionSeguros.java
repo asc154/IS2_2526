@@ -69,7 +69,6 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 				segurosDAO.eliminaSeguro(s.getId());
 				return s;
 	}
-	
 
 	@Override
 	public Seguro anhadeConductorAdicional(String matricula, String conductor) throws DataAccessException {
