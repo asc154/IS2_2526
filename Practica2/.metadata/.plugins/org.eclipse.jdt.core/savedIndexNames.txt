@@ -1,6 +1,0 @@
-INDEX VERSION 1.134+C:\Users\jesus\Desktop\IS2_2526\Practica2\.metadata\.plugins\org.eclipse.jdt.core
-2693913029.index
-3706316.index
-3907512705.index
-1685760306.index
-1258130878.index
