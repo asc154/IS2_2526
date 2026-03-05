@@ -9,69 +9,22 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 
     // Atributos (Basados en la descripción de la aplicación) 
     // Nota: Aquí se incluiría la referencia al DAO/Persistencia
+	
+	private IClientesDAO clientesDAO; 
+	private ISegurosDAO segurosDAO;	
     
 	public GestionSeguros(IClientesDAO clientesDAO, ISegurosDAO segurosDAO) {
         // En esta fase solo definimos la cabecera y asignamos atributos
         // para permitir la compilación en el paso 3.3.
+		this.clientesDAO = clientesDAO;
+		this.segurosDAO = segurosDAO;
 
-    }
-
-    /**
-     * Caso de Uso: Nuevo Cliente 
-     */
-    public void nuevoCliente(String nombre, String dni, boolean minusvalia) {
-        // TODO: Implementar según pasos de la secuencia 
-    }
-
-    /**
-     * Caso de Uso: Baja Cliente 
-     */
-    public Cliente bajaCliente(String dni) {
-        // TODO: Implementar según pasos de la secuencia 
-    	return null;
-    }
-
-    /**
-     * Caso de Uso: Nuevo Seguro 
-     */
-    public void nuevoSeguro(String dni, String matricula, int potencia, String tipoCobertura) {
-        // TODO: Implementar según pasos de la secuencia 
-    }
-
-    /**
-     * Caso de Uso: Baja Seguro 
-     */
-    public Seguro bajaSeguro(String dni, String matricula) {
-        // TODO: Implementar según pasos de la secuencia 
-    	return null;
-    }
-
-    /**
-     * Caso de Uso: Consulta Cliente 
-     * Retorna el objeto Cliente con sus seguros y total a pagar.
-     */
-    public void consultaCliente(String dni) {
-        // TODO: Implementar visualización en interfaz 
-    }
-
-    /**
-     * Caso de Uso: Consulta Seguro 
-     */
-    public void consultaSeguro(String matricula) {
-        // TODO: Implementar 
-    }
-
-    /**
-     * Caso de Uso: Añadir conductor adicional 
-     */
-    public void anhadirConductorAdicional(String matricula, String nombreConductor) {
-        // TODO: Implementar 
     }
 
 	@Override
 	public Cliente cliente(String dni) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		//Delegamos búsqueda al DAO de clientes
+        return clientesDAO.cliente(dni);
 	}
 
 	@Override
@@ -87,6 +40,12 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 	}
 
 	@Override
+	public Seguro bajaSeguro(String matricula, String dni) throws OperacionNoValida, DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Seguro anhadeConductorAdicional(String matricula, String conductor) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
@@ -94,7 +53,30 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 
 	@Override
 	public Cliente nuevoCliente(Cliente c) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		// Lógica de negocio: Verificar si el cliente ya existe antes de crearlo
+        if (clientesDAO.cliente(c.getDni()) != null) {
+            return null; 
+        }       
+        return clientesDAO.creaCliente(c);
 	}
+
+	@Override
+	public Cliente bajaCliente(String dni) throws OperacionNoValida, DataAccessException {
+		// 1. Buscamos si el cliente existe
+        Cliente cliente = clientesDAO.cliente(dni);
+        
+        if (cliente == null) {
+            return null; // No existe, no hay nada que eliminar
+        }
+        
+        //Lógica de negocio: No se puede borrar si tiene seguros asociados        
+        if (cliente.getSeguros() != null && !cliente.getSeguros().isEmpty()) {
+            throw new OperacionNoValida("No se puede dar de baja a un cliente con seguros activos.");
+        }
+        
+        //Si no tiene seguros, procedemos a la eliminación
+        return clientesDAO.eliminaCliente(dni);
+	}
+
+   
 }
