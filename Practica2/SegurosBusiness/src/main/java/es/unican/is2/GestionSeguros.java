@@ -69,13 +69,6 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 				segurosDAO.eliminaSeguro(s.getId());
 				return s;
 	}
-
-	@Override
-	public Seguro bajaSeguro(String matricula, String dni) throws OperacionNoValida, DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public Seguro anhadeConductorAdicional(String matricula, String conductor) throws DataAccessException {
 
@@ -99,7 +92,6 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 
 	@Override
 	public Cliente bajaCliente(String dni) throws OperacionNoValida, DataAccessException {
-<<<<<<< HEAD
 		// 1. Buscamos si el cliente existe
         Cliente cliente = clientesDAO.cliente(dni);
         
@@ -115,13 +107,4 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
         //Si no tiene seguros, procedemos a la eliminación
         return clientesDAO.eliminaCliente(dni);
 	}
-
-   
-=======
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
->>>>>>> e6da4262f5437ce867de1134a17c41142980115b
 }
