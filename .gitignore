@@ -26,3 +26,15 @@ replay_pid*
 # .settings
 *.prefs
 
+/.metadata/
+
+# Archivos de configuración de Eclipse
+.classpath
+.project
+.settings/
+bin/
+# Archivos de configuración de Visual Studio Code
+.vscode/
+# Directorio de artefactos generados en Maven
+target/
+
