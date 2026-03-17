@@ -2,6 +2,7 @@ package es.unican.is2;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants; 
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
@@ -44,7 +45,9 @@ public class VistaAgente extends JFrame {
 	}
 	
 	public void init() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Mejora 2: Sustituido JFrame.EXIT_ON_CLOSE por WindowConstants.EXIT_ON_CLOSE
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		
 		setBounds(100, 100, 450, 341);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -26,14 +26,14 @@ public class ClientesDAO implements IClientesDAO {
 	public Cliente cliente(String dni) throws DataAccessException {
 		Cliente result = null; 
 		Connection con = H2ServerConnectionManager.getConnection();
-		try {
-			Statement statement = con.createStatement();
-			String statementText = "select * from Clientes where dni = '"+ dni+"'";
+		// Mejora 4: Sustituimos el "select *" por las columnas específicas
+		String statementText = "select dni, nombre, minusvalia from Clientes where dni = '"+ dni+"'";
+		// Mejora 1: Usamos try-with-resources para el Statement. Se cerrará automáticamente.
+		try (Statement statement = con.createStatement()) {
 			ResultSet results = statement.executeQuery(statementText);
 			if (results.next()) { 
 				result = procesaCliente(con,results);
 			}
-			statement.close(); 
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class ClientesDAO implements IClientesDAO {
 		Cliente old = cliente(nuevo.getDni());
 		String statementText;
 
-		Connection con = H2ServerConnectionManager.getConnection();
+		// Mejora 3: Se elimina 'Connection con = H2ServerConnectionManager.getConnection();' 
 
 		statementText = String.format(
 				"update Clientes set nombre = '%s', minusvalia = '%b' where dni = '%s'", 
@@ -70,7 +70,8 @@ public class ClientesDAO implements IClientesDAO {
 	@Override
 	public Cliente eliminaCliente(String dni) throws DataAccessException {
 		Cliente cliente = cliente(dni);
-		Connection con = H2ServerConnectionManager.getConnection();
+		// Mejora 3: Se elimina 'Connection con = H2ServerConnectionManager.getConnection();' 
+		
 		String statementText = "delete from Clientes where dni = " + dni;
 		H2ServerConnectionManager.executeSqlStatement(statementText);
 		return cliente;
@@ -80,17 +81,16 @@ public class ClientesDAO implements IClientesDAO {
 	public List<Cliente> clientes() throws DataAccessException {
 		List<Cliente> clientes = new LinkedList<Cliente>();
 		Connection con = H2ServerConnectionManager.getConnection(); 
-		try {
-			Statement statement = con.createStatement(); 
-			String statementText = "select * from Clientes"; 
+		// Mejora 4: Sustituimos el "select *" por las columnas específicas
+		String statementText = "select dni, nombre, minusvalia from Clientes"; 
+		
+		// Mejora 1: Usamos try-with-resources para el Statement.
+		try (Statement statement = con.createStatement()) { 
 			ResultSet results = statement.executeQuery(statementText); 
-			// Procesamos cada fila como vehiculo independiente
 			while (results.next()) {
 				clientes.add(procesaCliente(con, results)); 
 			}
-			statement.close(); 
 		} catch (SQLException e) {
-			// System.out.println(e);
 			throw new DataAccessException();
 		}
 
@@ -100,13 +100,16 @@ public class ClientesDAO implements IClientesDAO {
 	private Cliente procesaCliente(Connection con, ResultSet results) throws SQLException, DataAccessException {
 		Cliente result = ClienteMapper.toCliente(results);
 		// Cargamos los seguros del cliente
-		Statement statement = con.createStatement();
-		String statementText = String.format("select * from Seguros where cliente_FK = '%s'", result.getDni());
-		results = statement.executeQuery(statementText);
-		while (results.next()) {
-			result.getSeguros().add(SeguroMapper.toSeguro(results));
-		}
-		statement.close();
+		// Mejora 1: try-with-resources para el Statement
+		try (Statement statement = con.createStatement()) {
+			// Mejora 4: Sustituir "select *" por las columnas específicas de la tabla Seguros
+			String statementText = String.format("select id, matricula, fechaInicio, cobertura, potencia, "
+					+ "conductorAdicional from Seguros where cliente_FK = '%s'", result.getDni());			
+			results = statement.executeQuery(statementText);
+			while (results.next()) {
+				result.getSeguros().add(SeguroMapper.toSeguro(results));
+			}
+		}		
 		return result;
 	}
 	

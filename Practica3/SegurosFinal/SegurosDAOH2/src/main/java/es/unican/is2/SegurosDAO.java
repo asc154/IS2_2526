@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class SegurosDAO implements ISegurosDAO {
 
 	@Override
@@ -26,7 +25,9 @@ public class SegurosDAO implements ISegurosDAO {
 	@Override
 	public Seguro eliminaSeguro(long id) throws DataAccessException {
 		Seguro seguro = seguro(id);
-		Connection con = H2ServerConnectionManager.getConnection();
+		
+		// Mejora 3: Se elimina 'Connection con = H2ServerConnectionManager.getConnection();'
+		
 		String statementText = "delete from Seguros where id = " + id;
 		H2ServerConnectionManager.executeSqlStatement(statementText);
 		return seguro;
@@ -37,7 +38,8 @@ public class SegurosDAO implements ISegurosDAO {
 		Seguro seguro = null;
 		Seguro old = seguro(nuevo.getId());
 		String statementText;
-		Connection con = H2ServerConnectionManager.getConnection();
+		
+		// Mejora 3: Se elimina 'Connection con = H2ServerConnectionManager.getConnection();'
 
 		statementText = String.format(
 				"update Seguros set matricula = '%s', fechaInicio = '%s', cobertura = '%s', potencia = '%d', conductorAdicional = '%s' where id = '%d'", 
@@ -51,14 +53,15 @@ public class SegurosDAO implements ISegurosDAO {
 	public Seguro seguro(long id) throws DataAccessException {
 		Seguro result = null; 
 		Connection con = H2ServerConnectionManager.getConnection();
-		try {
-			Statement statement = con.createStatement();
-			String statementText = "select * from Seguros where id = '"+ id+"'";
+		
+		// Mejora 1: Se utiliza try-with-resources
+		try (Statement statement = con.createStatement()) {
+			// Mejora 4: Se sustituye "select *" por las columnas exactas
+			String statementText = "select id, matricula, fechaInicio, cobertura, potencia, conductorAdicional from Seguros where id = '"+ id+"'";
 			ResultSet results = statement.executeQuery(statementText);
 			if (results.next()) { 
 				result = SeguroMapper.toSeguro(results);
 			}
-			statement.close(); 
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -71,15 +74,16 @@ public class SegurosDAO implements ISegurosDAO {
 	public List<Seguro> seguros() throws DataAccessException {
 		List<Seguro> seguros = new LinkedList<Seguro>();
 		Connection con = H2ServerConnectionManager.getConnection(); 
-		try {
-			Statement statement = con.createStatement(); 
-			String statementText = "select * from Seguros"; 
+		
+		// Mejora 1: Se utiliza try-with-resources
+		try (Statement statement = con.createStatement()) { 
+			// Mejora 4: Se sustituye "select *" por las columnas exactas
+			String statementText = "select id, matricula, fechaInicio, cobertura, potencia, conductorAdicional from Seguros"; 
 			ResultSet results = statement.executeQuery(statementText); 
 			// Procesamos cada fila como vehiculo independiente
 			while (results.next()) {
 				seguros.add(SeguroMapper.toSeguro(results)); 
 			}
-			statement.close(); 
 		} catch (SQLException e) {
 			// System.out.println(e);
 			throw new DataAccessException();
@@ -92,23 +96,20 @@ public class SegurosDAO implements ISegurosDAO {
 	public Seguro seguroPorMatricula(String matricula) throws DataAccessException {
 		Seguro result = null; 
 		Connection con = H2ServerConnectionManager.getConnection();
-		try {
-			Statement statement = con.createStatement();
-			String statementText = "select * from Seguros where matricula = '"+ matricula+"'";
+		
+		// Mejora 1: Se utiliza try-with-resources
+		try (Statement statement = con.createStatement()) {
+			// Mejora 4: Se sustituye "select *" por las columnas exactas
+			String statementText = "select id, matricula, fechaInicio, cobertura, potencia, conductorAdicional from Seguros where matricula = '"+ matricula+"'";
 			ResultSet results = statement.executeQuery(statementText);
 			if (results.next()) { 
 				result = SeguroMapper.toSeguro(results);
 			}
-			statement.close(); 
 		}
 		catch (SQLException e) {
 			throw new DataAccessException();
 		}
 		return result;
 	}
-	
-	
-
-	
 
 }
