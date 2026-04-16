@@ -23,6 +23,17 @@ public class Cliente {
         return seguros;
     }
     
+    public Cliente(String dni, String nombre, boolean minusvalia) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.minusvalia = minusvalia;
+        this.seguros = new LinkedList<>();
+    }
+    
+    public Cliente() {
+        this.seguros = new LinkedList<>();
+    }
+    
     /**
      * Asigna la lista de seguros
      */
@@ -92,6 +103,20 @@ public class Cliente {
          }
 
          return total;
+     }
+     
+     @Override
+     public boolean equals(Object obj) {
+         if (this == obj) return true;
+         if (obj == null || getClass() != obj.getClass()) return false;
+
+         Cliente other = (Cliente) obj;
+         return dni != null && dni.equals(other.dni);
+     }
+     
+     @Override
+     public int hashCode() {
+         return dni != null ? dni.hashCode() : 0;
      }
 
 }

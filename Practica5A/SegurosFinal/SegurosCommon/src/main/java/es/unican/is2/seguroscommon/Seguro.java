@@ -19,6 +19,16 @@ public class Seguro {
 
 	private String conductorAdicional;
 
+	public Seguro(long id, String matricula, int potencia, Cobertura cobertura, LocalDate fechaInicio) {
+	    this.id = id;
+	    this.matricula = matricula;
+	    this.potencia = potencia;
+	    this.cobertura = cobertura;
+	    this.fechaInicio = fechaInicio;
+	}
+	
+	public Seguro() {
+	}
 	/**
 	 * Retorna el identificador del seguro
 	 */
@@ -153,5 +163,21 @@ public class Seguro {
 		
 		return precioConPotencia;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    if (this == obj) return true;
+	    if (obj == null || getClass() != obj.getClass()) return false;
+
+	    Seguro other = (Seguro) obj;
+	    return id == other.id;
+	}
+	
+	@Override
+	public int hashCode() {
+	    return Long.hashCode(id);
+	}
+	
+	
 	
 }
