@@ -22,7 +22,8 @@
         <!-- <sonar.projectKey>Seguros3</sonar.projectKey> -->
         <!-- <sonar.projectName>Seguros3</sonar.projectName> -->
     </properties>
-
+    
+      
     <!-- Nombres de los directorios que contienen los módulos. Asegurar que se correspondan con vuestros directorios -->
     <modules>
 	<module>SegurosCommon</module>

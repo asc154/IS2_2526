@@ -61,12 +61,12 @@ public class GestionSeguros implements IGestionClientes, IGestionSeguros, IInfoS
 
 	    Seguro s = segurosDAO.seguroPorMatricula(matricula);
 	    if (s == null) {
-	        return null; // ✅ antes excepción
+	        return null; 
 	    }
 
 	    Cliente c = clientesDAO.cliente(dni);
 	    if (c == null) {
-	        return null; // ✅ antes excepción
+	        return null; 
 	    }
 
 	    boolean pertenece = false;

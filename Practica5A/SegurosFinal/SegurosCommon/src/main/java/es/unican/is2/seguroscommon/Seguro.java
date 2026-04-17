@@ -157,7 +157,7 @@ public class Seguro {
 		
 		double precioConPotencia = precioBase + subidaPotencia;
 
-		if (hoy.isBefore(fechaInicio.plusYears(1))) {
+		if (!hoy.isAfter(fechaInicio.plusYears(1))) {
 			precioConPotencia -= (precioConPotencia * 0.20); 
 		}
 		
