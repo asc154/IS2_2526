@@ -128,13 +128,13 @@ public class Seguro {
 	public double precio() {
 		LocalDate hoy =  LocalDate.now();
 		
-		if(fechaInicio == null || hoy.isBefore(fechaInicio)) {
+		if(fechaInicio == null || hoy.isBefore(fechaInicio) || cobertura == null) {
 			return 0.0;
 		}
 		
 		double precioBase = 0.0;
 		
-		if (cobertura != null) {
+		
 			switch (cobertura) {
 				case TODO_RIESGO:
 					precioBase = 1000.0; 
@@ -145,9 +145,11 @@ public class Seguro {
 				case TERCEROS:
 					precioBase = 400.0; 
 					break;
-			}
-		}
+				default: 					
+					break; //4th branch de EclEmma? Código inalcanzable
+			}			
 		
+				
 		double subidaPotencia = 0.0;
 		if (potencia >= 90 && potencia <= 110) {
 			subidaPotencia = precioBase * 0.05; // 
