@@ -105,18 +105,6 @@ public class Cliente {
          return total;
      }
      
-     @Override
-     public boolean equals(Object obj) {
-         if (this == obj) return true;
-         if (obj == null || getClass() != obj.getClass()) return false;
-
-         Cliente other = (Cliente) obj;
-         return dni != null && dni.equals(other.dni);
-     }
-     
-     @Override
-     public int hashCode() {
-         return dni != null ? dni.hashCode() : 0;
-     }
+        
 
 }

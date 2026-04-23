@@ -7,7 +7,7 @@
     <artifactId>SegurosFinal</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
-    <name>SegurosFinal</name> <!-- Este es el nombre por defecto en Sonar -->
+    <name>SegurosFinal</name> 
 
     <properties>
         <maven.compiler.target>21</maven.compiler.target>
@@ -24,7 +24,7 @@
     </properties>
     
       
-    <!-- Nombres de los directorios que contienen los módulos. Asegurar que se correspondan con vuestros directorios -->
+    
     <modules>
 	<module>SegurosCommon</module>
  	<module>SegurosDAOH2</module>
