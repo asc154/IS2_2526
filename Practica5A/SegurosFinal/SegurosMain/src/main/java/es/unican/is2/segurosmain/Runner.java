@@ -16,5 +16,4 @@ public class Runner {
 		VistaAgente vista = new VistaAgente(negocio, negocio, negocio);
 		vista.setVisible(true);
 	}
-
 }
