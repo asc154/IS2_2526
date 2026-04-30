@@ -1,4 +1,4 @@
-package es.unican.is2;
+package es.unican.is2.ConjuntoOrdenado;
 
 import java.util.ArrayList;
 import java.util.List;
