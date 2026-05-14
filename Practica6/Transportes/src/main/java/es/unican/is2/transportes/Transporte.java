@@ -16,6 +16,17 @@ public class Transporte {
 	 * representa el numero de personas, en caso de ser de tipo Mercancias 
 	 * representa las toneladas
 	 */ 
+	
+	 // WMC: CC constructor = 5
+    //   +1 base
+    //   +1 if (horas <= 0 || valor <= 0 || cat == null)
+    //   +1 primer || adicional
+    //   +1 segundo || adicional
+    //   +1 if (cat.equals(CategoriaTransporte.Personas))
+    // CCog constructor = 3
+    //   +1 if (horas <= 0 || valor <= 0 || cat == null) [nivel 0]
+    //   +1 secuencia de || (una sola secuencia de operadores iguales)
+    //   +1 if (cat.equals(...)) [nivel 0]
 	public Transporte(double horas, CategoriaTransporte cat, int valor) throws IllegalArgumentException {
 		if (horas <= 0 || valor <= 0 || cat == null) {
 			throw new IllegalArgumentException();
@@ -28,21 +39,28 @@ public class Transporte {
 			this.ton = valor;
 		}
 	}
-	
+	// WMC: CC = 1 (secuencial, solo nodo base)
+    // CCog: 0 (secuencial)
 	public double horas() {
 		return horas;
 	}
-
+	// WMC: CC = 1 (secuencial)
+    // CCog: 0 (secuencial)
 	public CategoriaTransporte categoria() {
 		return cat;
 	}
-
+	// WMC: CC = 1 (secuencial)
+    // CCog: 0 (secuencial)
 	public int ton() {
 		return ton;
 	}
-
+    // WMC: CC = 1 (secuencial)
+    // CCog: 0 (secuencial)
 	public int getPersonas() {
 		return personas;
 	}
+	// WMC total = 5+1+1+1+1 = 9
+    // CCog total = 3+0+0+0+0 = 3
 	
 }
+
