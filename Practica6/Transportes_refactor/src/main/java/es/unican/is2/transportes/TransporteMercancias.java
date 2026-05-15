@@ -1,5 +1,7 @@
 package es.unican.is2.transportes;
 
+// WMC = 2 (suma de CC de todos los métodos)
+// CCog = 0 (suma de complejidad cognitiva de todos los métodos)
 public class TransporteMercancias extends Transporte {
 
     private static final double EXTRA_TONELADA = 2.0;
@@ -7,7 +9,7 @@ public class TransporteMercancias extends Transporte {
     // WMC: CC = 1 (secuencial, llama a super)
     // CCog: 0 (secuencial)
     public TransporteMercancias(double horas, int toneladas) {
-        super(horas, CategoriaTransporte.Mercancias, toneladas);
+        super(horas, toneladas, false);
     }
 
     // WMC: CC = 1 (secuencial)

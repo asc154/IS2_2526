@@ -2,9 +2,6 @@ package es.unican.is2.transportes;
 
 // WMC = 2 (suma de CC de todos los métodos)
 // CCog = 0 (suma de complejidad cognitiva de todos los métodos)
-// CBO = 2: hereda de Transporte y usa CategoriaTransporte implícitamente via super (EFF=1)
-//          es usada por GestionTransportesGUI (AFF=1)
-//          clases que contribuyen: Transporte, GestionTransportesGUI
 public class TransporteMercanciasPeligrosas extends Transporte {
 
     private static final double EXTRA_TONELADA = 2.0;
@@ -13,7 +10,7 @@ public class TransporteMercanciasPeligrosas extends Transporte {
     // WMC: CC = 1 (secuencial, llama a super)
     // CCog: 0 (secuencial)
     public TransporteMercanciasPeligrosas(double horas, int toneladas) {
-        super(horas, CategoriaTransporte.MercanciasPeligrosas, toneladas);
+        super(horas, toneladas, false);
     }
 
     // WMC: CC = 1 (secuencial)

@@ -2,9 +2,6 @@ package es.unican.is2.transportes;
 
 // WMC = 3 (suma de CC de todos los métodos)
 // CCog = 1 (suma de complejidad cognitiva de todos los métodos)
-// CBO = 2: hereda de Transporte y usa CategoriaTransporte implícitamente via super (EFF=1)
-//          es usada por GestionTransportesGUI (AFF=1)
-//          clases que contribuyen: Transporte, GestionTransportesGUI
 public class TransportePersonas extends Transporte {
 
     private static final int LIMITE_COLECTIVO = 10;
@@ -14,7 +11,7 @@ public class TransportePersonas extends Transporte {
     // WMC: CC = 1 (secuencial, llama a super)
     // CCog: 0 (secuencial)
     public TransportePersonas(double horas, int personas) {
-        super(horas, CategoriaTransporte.Personas, personas);
+        super(horas, personas, true);
     }
 
     // WMC: CC = 2

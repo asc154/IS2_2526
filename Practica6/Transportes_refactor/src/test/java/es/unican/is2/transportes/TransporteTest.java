@@ -10,13 +10,11 @@ public class TransporteTest {
         // Casos validos
         TransporteMercancias sut = new TransporteMercancias(1, 1);
         assertEquals(1, sut.horas());
-        assertEquals(CategoriaTransporte.Mercancias, sut.categoria());
         assertEquals(1, sut.ton());
         assertEquals(0, sut.getPersonas());
 
         sut = new TransporteMercancias(10, 1000);
         assertEquals(10, sut.horas());
-        assertEquals(CategoriaTransporte.Mercancias, sut.categoria());
         assertEquals(1000, sut.ton());
         assertEquals(0, sut.getPersonas());
 
@@ -30,7 +28,6 @@ public class TransporteTest {
         // Casos validos
         TransporteMercanciasPeligrosas sut = new TransporteMercanciasPeligrosas(10, 1000);
         assertEquals(10, sut.horas());
-        assertEquals(CategoriaTransporte.MercanciasPeligrosas, sut.categoria());
         assertEquals(1000, sut.ton());
         assertEquals(0, sut.getPersonas());
 
@@ -44,7 +41,6 @@ public class TransporteTest {
         // Casos validos
         TransportePersonas sut = new TransportePersonas(10, 10);
         assertEquals(10, sut.horas());
-        assertEquals(CategoriaTransporte.Personas, sut.categoria());
         assertEquals(10, sut.getPersonas());
         assertEquals(0, sut.ton());
 

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 // WMC = 13 (suma de CC de todos los métodos)
 // CCog = 3 (suma de complejidad cognitiva de todos los métodos)
-// CBO = 3: usa Transporte (EFF=1)
-//          es usado por GestionTransportes y GestionTransportesGUI (AFF=2)
-//          clases que contribuyen: Transporte, GestionTransportes, GestionTransportesGUI
 public class Conductor {
 
     private ArrayList<Transporte> transportes = new ArrayList<Transporte>();
