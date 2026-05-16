@@ -73,47 +73,33 @@ public class GestionTransportesGUI {
             mensaje("ERROR", "Ya existe un conductor con DNI " + dni);
     }
 
-    // WMC: CC anhadeTransporte() = 5
-    //   +1 base
-    //   +1 if (c != null)
-    //   +1 case "P"
-    //   +1 case "M"
-    //   +1 case "MP"
-    // CCog anhadeTransporte() = 4
-    //   +1 if (c != null) [nivel 0]
-    //   +1 switch(tipo) [nivel 1]
-    //   +1 penalización nivel 1 del switch
-    //   +1 else [siempre +1 sin penalización]
-    private static void anhadeTransporte(GestionTransportes gt) {
-        Lectura lect = new Lectura("Nuevo transporte");
-        lect.creaEntrada("DNI", "");
-        lect.creaEntrada("Tipo Transporte: P | M | MP", "");
-        lect.creaEntrada("Horas", 0);
-        lect.creaEntrada("Personas", 0);
-        lect.creaEntrada("Toneladas", 0);
-        lect.esperaYCierra();
-        String dni = lect.leeString("DNI");
-        String tipo = lect.leeString("Tipo Transporte: P | M | MP");
-        int horas = lect.leeInt("Horas");
-        int personas = lect.leeInt("Personas");
-        int toneladas = lect.leeInt("Toneladas");
-        Conductor c = gt.buscaConductor(dni);
-        if (c != null) {                                        // WMC+1, CCog+1 [nivel 0]
-            switch (tipo) {                                     // CCog+1+1 [nivel 1]
-                case "P":                                       // WMC+1
-                    c.anhadeTransporte(new TransportePersonas(horas, personas));
-                    break;
-                case "M":                                       // WMC+1
-                    c.anhadeTransporte(new TransporteMercancias(horas, toneladas));
-                    break;
-                case "MP":                                      // WMC+1
-                    c.anhadeTransporte(new TransporteMercanciasPeligrosas(horas, toneladas));
-                    break;
-            }
-        } else {                                                // CCog+1 [sin penalización]
-            mensaje("ERROR", "No existe un conductor con DNI " + dni);
-        }
-    }
+ // WMC: CC anhadeTransporte() = 2
+//  +1 base
+//  +1 if (c != null)
+//CCog anhadeTransporte() = 2
+//  +1 if (c != null) [nivel 0]
+//  +1 else [sin penalización]
+private static void anhadeTransporte(GestionTransportes gt) {
+   Lectura lect = new Lectura("Nuevo transporte");
+   lect.creaEntrada("DNI", "");
+   lect.creaEntrada("Tipo Transporte: P | M | MP", "");
+   lect.creaEntrada("Horas", 0);
+   lect.creaEntrada("Personas", 0);
+   lect.creaEntrada("Toneladas", 0);
+   lect.esperaYCierra();
+   String dni = lect.leeString("DNI");
+   String tipo = lect.leeString("Tipo Transporte: P | M | MP");
+   int horas = lect.leeInt("Horas");
+   int personas = lect.leeInt("Personas");
+   int toneladas = lect.leeInt("Toneladas");
+   Conductor c = gt.buscaConductor(dni);
+   if (c != null) {                                    // WMC+1, CCog+1 [nivel 0]
+       Transporte t = gt.crearTransporte(tipo, horas, personas, toneladas);
+       c.anhadeTransporte(t);
+   } else {                                            // CCog+1 [sin penalización]
+       mensaje("ERROR", "No existe un conductor con DNI " + dni);
+   }
+}
 
     // WMC: CC sueldoConductor() = 2
     //   +1 base
@@ -163,6 +149,6 @@ public class GestionTransportesGUI {
         msj.escribe(txt);
     }
 
-    // WMC total = 6+2+5+2+3+1 = 19
-    // CCog total = 3+1+4+1+4+0 = 13
+    // WMC total = 6+2+2+2+3+1 = 16
+    // CCog total = 3+1+4+1+4+0 = 11
 }

@@ -47,7 +47,7 @@ public abstract class Transporte {
         return personas;
     }
 
-    // Método abstracto: no computa CC ni CCog al no tener implementación
+    // Método abstracto: ni CC ni CCog al no tener implementación
     public abstract double extraSueldo();
 
     // WMC total = 4+1+1+1 = 7

@@ -66,7 +66,23 @@ public class GestionTransportes {
         }
         return resultado;
     }
+    
+ // WMC: CC crearTransporte() = 4
+//  +1 base
+//  +1 case "P"
+//  +1 case "M"  
+//  +1 case "MP"
+//CCog crearTransporte() = 1
+//  +1 switch [nivel 0]
+public Transporte crearTransporte(String tipo, double horas, int personas, int toneladas) {
+   switch (tipo) {
+       case "P":  return new TransportePersonas(horas, personas);
+       case "M":  return new TransporteMercancias(horas, toneladas);
+       case "MP": return new TransporteMercanciasPeligrosas(horas, toneladas);
+       default:   throw new IllegalArgumentException("Tipo desconocido: " + tipo);
+   }
+}
 
-    // WMC total = 3+2+1+4 = 10
-    // CCog total = 3+1+0+4 = 8
+    // WMC total = 3+2+1+4 = 14
+    // CCog total = 3+1+0+4 = 9
 }
